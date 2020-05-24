@@ -62,12 +62,13 @@ const AppContainer = createStackNavigator({
     {
       defaultNavigationOptions: {
         tabBarOnPress: ({navigation, defaultHandler}) => {
-          if (navigation.state.key === "Accounts"){
-            navigation.navigate("Logs")
-          }
-          else {
-            defaultHandler();
-          }
+          // if (navigation.state.key === "Accounts"){
+          //   navigation.navigate("Logs")
+          // }
+          // else {
+          //   defaultHandler();
+          // }
+          defaultHandler();
         }
       },
       tabBarOptions: {
@@ -76,10 +77,11 @@ const AppContainer = createStackNavigator({
         //showLabel: false
       }
     }
-  ),
-  Logs: {
-    screen: LogsScreen
-  }
+  )
+  // ,
+  // Logs: {
+  //   screen: LogsScreen
+  // }
 },
 {
   mode: "modal",
