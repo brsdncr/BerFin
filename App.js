@@ -8,7 +8,7 @@ if (!global.atob) { global.atob = decode }
 //Navigation imports
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 
 import { Ionicons } from '@expo/vector-icons';
@@ -27,6 +27,11 @@ import FriendsScreen from './screens/FriendsScreen';
 //Firebase imports
 import * as firebase from 'firebase';
 import firebaseConfig from './config/firebaseConfig';
+
+
+//Ignore yellow boxes FOR DEVELOPMENT
+//console.ignoredYellowBox = ['Setting a timer'];
+console.disableYellowBox = true;
 
 //Firebase Initialization
 firebase.initializeApp(firebaseConfig);
@@ -47,7 +52,14 @@ const AppContainer = createStackNavigator({
         }
       },
       Accounts: {
-        screen: AccountsScreen,
+        screen: createStackNavigator({
+          Accounts: {
+            screen: AccountsScreen,
+          },
+          Logs: {
+            screen: LogsScreen,
+          },
+        }),
         navigationOptions: {
           tabBarIcon: ({tintColor}) => <Ionicons name="md-wallet" size={24} color={tintColor}/>
         }
@@ -74,14 +86,9 @@ const AppContainer = createStackNavigator({
       tabBarOptions: {
         activeTintColor: "#161F3D",
         inactiveTintColor: "#B8B8C4",
-        //showLabel: false
       }
     }
   )
-  // ,
-  // Logs: {
-  //   screen: LogsScreen
-  // }
 },
 {
   mode: "modal",
@@ -94,6 +101,7 @@ const AuthStack = createStackNavigator({
 })
 
 export default createAppContainer (
+  //Detail has been added to create another stack for Logs Pages
   createSwitchNavigator (
     {
       Loading: LoadingScreen,
